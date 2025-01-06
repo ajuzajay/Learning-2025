@@ -12,7 +12,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # copy the app code
 
-COPY first-dummy-app.py /app
+COPY app.py /app
 
 # Make port 5000 available to the world outside this container
 EXPOSE 5000

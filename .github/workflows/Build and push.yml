@@ -1,0 +1,10 @@
+name: Build and push
+on:
+  push:
+    branches:
+      - master
+    paths:
+      jobs:
+        build:
+          runs-on: ubuntu-latest
+

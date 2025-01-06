@@ -56,10 +56,10 @@ jobs:
       - name: Get Public IP and SHA
         run: | 
            echo "public_ip=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=${{ env.AWS_EC2 }}" --query "Reservations[*].Instances[*].PublicIpAddress" --output text)" >> $GITHUB_ENV"  
-           echo "sh $$GITHUB_SHA"
+           echo "sh $GITHUB_SHA"
 
       - name: Execute Remote SSH Commands using SSH Key
-        uses: appleboy/ssh-action@
+        uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ env.public_ip }}
           username: "ec2-user"

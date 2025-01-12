@@ -93,6 +93,15 @@ docker push 816069150653.dkr.ecr.us-east-1.amazonaws.com/flask_application:lates
 This is about day1.... Thanks
 
 
+DAY2 ....
+
+
+we are creating a workflow using github action and build the image and push image to aws ecr and then we deploy to a ec2 instances 
+
+file avilable for day2 is .github/workflows/ Build and push.yml and deploy.yml
+
+
+
 
 
 

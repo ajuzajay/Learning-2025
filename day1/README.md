@@ -57,8 +57,8 @@ To push a image to docker hub.
 2. login the docker using docker commands below
 
       docker login  <-- It will prompt you to enter your username and password.
-3. 
-docker build -t ajayjohn100/bootcampday1:v1 --platform=linux/amd64 .  <--- ajayjohn=<docker name> and which repo we are pushing that is <bootcampday1>
+    
+3. docker build -t ajayjohn100/bootcampday1:v1 --platform=linux/amd64 .  <--- ajayjohn=<docker name> and which repo we are pushing that is <bootcampday1>
 
 4. if we are not given proper repo name we can't push image to docker. for that we need to change name of the image using the below command 
 

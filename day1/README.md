@@ -43,7 +43,7 @@ docker build -t flask .
 
 Platform compatibility means if you are building a image in macbook that image won't support for Linx machine becuase of platform compatibility issues. In real world we will not use mac images we build image for Linux. like below
 
-docker build -t ajayjohn100/bootcampday1 --platform=linux/amd64 .  <--- ajayjohn=<docker name> and which repo we are pushing that is <bootcampday1>
+docker build -t ajayjohn100/bootcampday1 --platform=linux/amd64 .  <--- ajayjohn=<docker name> and whhich docker we are pushing the image, docker repo name --> <bootcampday1>
 
 
 **How to readuce build time ?**
@@ -58,14 +58,14 @@ To push a image to docker hub.
 
       docker login  <-- It will prompt you to enter your username and password.
     
-3. docker build -t ajayjohn100/bootcampday1:v1 --platform=linux/amd64 .  <--- ajayjohn=<docker name> and which repo we are pushing that is <bootcampday1>
+3. docker build -t ajayjohn100/bootcampday1:v1 --platform=linux/amd64 .  <--- ajayjohn=<docker name> and where we are pushing that image is docker repo ---> <bootcampday1>
 
 4. if we are not given proper repo name we can't push image to docker. for that we need to change name of the image using the below command 
 
 
 docker tag <source image:tag> <dockerrepo.tag>
 
-docker tag 123b3jcj32:v1 ajayjohn100/bootcampday1:v1 
+docker tag 123b3jcj32:v1 ajayjohn100/bootcampday1:v1 ----v1 --> tag number 
 
 5. now we can push the docker image
 

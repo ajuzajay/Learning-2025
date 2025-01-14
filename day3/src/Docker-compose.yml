@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   app:
     build: . # This will build the container from the Dockerfile stored locally.
@@ -12,7 +10,7 @@ services:
         condition: service_healthy   # will wait for db to be ready
 
   db:
-    image: postgres:latest
+    image: postgres:14
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password

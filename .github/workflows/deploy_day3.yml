@@ -5,7 +5,7 @@ on:
     branches:
       - master
     paths:
-      - day3/**
+      - day3/src/**
 env:
   AWS_REGION: "us-east-1"
   AWS_EC2: "flask_app"

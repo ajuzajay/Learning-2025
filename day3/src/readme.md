@@ -39,6 +39,10 @@ python3 -m venv <name of the venv> like bootcamp
 
 source bootcamp/bin/activate
 
+Install dependencies
+
+pip install -r requirements.txt
+
 2. First we need to create the database using container.
 
 docker run --name flask_postgres -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=password -e POSTGRES_DB=postgres -p 5432:5432 -d postgres:14

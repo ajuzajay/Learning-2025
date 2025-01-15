@@ -112,13 +112,122 @@ Now we are creating flask application into container and push the image into AWS
              5000 —>for flask application any one can connect from outside world
 
              22 —> ssh login
+    - [ ]  Create repo in AWS ECR then you can use In our GitHub action workflow
 
 - [ ] Created postgres db in aws using free tier.
+
              RDS created in private.
 
              Created a security group for RDS and its only able to connect the ec2 instance.
 
               5432 —> Postgres	db connectivity and its ec2 instance only able to connect.
+
+
+- [ ]  Github action work flow
+
+name: Deploy to ec2
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - day3/src/**
+env:
+  AWS_REGION: "us-east-1"
+  AWS_EC2: "flask_app"
+  ECR_REPO: "flask-app-repo"
+  GIT_SHA: ${{ github.sha }}
+  AWS_ACCOUNT_ID: "816069150653"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        run: |
+          aws ecr get-login-password --region ${{ env.AWS_REGION }} | \
+          docker login --username AWS --password-stdin ${{ env.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com
+
+      - name: Build Docker image
+        run: |
+          docker build -t ${{ env.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/${{ env.ECR_REPO }}:${{ env.GIT_SHA }} ./day3/src/
+          docker push ${{ env.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/${{ env.ECR_REPO }}:${{ env.GIT_SHA }}
+          
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Get Public IP and SHA
+        run: |
+          # Retrieves the EC2 instance's public IP and sets the SHA
+          echo "EC2_PUBLIC_IP=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=${{ env.AWS_EC2 }}" --query 'Reservations[*].Instances[*].PublicIpAddress' --output text)" >> "$GITHUB_ENV"  
+          echo "SHA: $GITHUB_SHA" # Output SHA for debugging and verification
+
+      - name: Execute Remote SSH Commands using SSH Key
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ env.EC2_PUBLIC_IP }}
+          username: ec2-user
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          script: |
+            # Cleans up existing containers and images
+            echo "Cleaning up the VM"
+            docker rm -f $(docker ps -aq)
+            docker rmi -f $(docker images -q)
+            
+            # Logs in to ECR and runs the Docker container
+            echo "Running container"
+            aws ecr get-login-password --region ${{ env.AWS_REGION }} | docker login --username AWS --password-stdin ${{ env.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com  
+            docker run -td -p 5000:5000 ${{ env.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/${{ env.ECR_REPO }}:${{ env.GIT_SHA }}
+
+
+Last we create a ALB and create security group inbount 80 and outbond 5000
+
+Target group need to listen to 5000 port because our application is running on port 5000 and attack that machine 
+
+	
+
+
+
+
+
+
+
+
+
+
+
+     
+
+
+
+
+
+
 
 
 

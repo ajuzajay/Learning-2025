@@ -104,6 +104,32 @@ mysql/Arora 3366
 ssh 22 
 
 
+Now we are creating flask application into container and push the image into AWS ECR and deploy to EC2 instance using GitHub	action	workflow. And our database are running in aws RDS 
+
+
+- [ ] Create ec2 instance and installed docker and open security port
+
+             5000 —>for flask application any one can connect from outside world
+
+             22 —> ssh login
+
+- [ ] Created postgres db in aws using free tier.
+             RDS created in private.
+             Created a security group for RDS and its only able to connect the ec2 instance.
+              5432 —> Postgres	db connectivity and its ec2 instance only able to connect.
+
+
+
+
+
+     
+
+
+
+
+
+
+
 
 
 

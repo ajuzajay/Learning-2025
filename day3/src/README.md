@@ -115,8 +115,24 @@ Now we are creating flask application into container and push the image into AWS
 
 - [ ] Created postgres db in aws using free tier.
              RDS created in private.
+
              Created a security group for RDS and its only able to connect the ec2 instance.
+
               5432 —> Postgres	db connectivity and its ec2 instance only able to connect.
+
+
+
+
+
+
+
+     
+
+
+
+
+
+
 
 
 

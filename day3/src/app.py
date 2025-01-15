@@ -52,4 +52,4 @@ def mark_attendance():
 
 if __name__ == '__main__':
     init_db()  # Initialize database tables before running the app
-    app.run(debug=True, host='0.0.0.0', port=8000)
+    app.run(debug=True, host='0.0.0.0')

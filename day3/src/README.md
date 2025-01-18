@@ -1,4 +1,3 @@
-
 Day3
 
 two tier application.

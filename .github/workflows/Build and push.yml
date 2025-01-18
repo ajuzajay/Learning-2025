@@ -1,12 +1,12 @@
 name: Build and push
 
 on:
-  #push:
-  #  branches:
-  #    - master
-  #  paths:
-  #    - day1/**
-  workflow_dispatch:
+ push:
+    branches:
+      - master
+    paths:
+      - day3/src/**
+
 
 jobs:
   build:
@@ -25,10 +25,10 @@ jobs:
 
       - name: Login to Amazon ECR
         run: |
-          aws ecr get-login-password --region us-east-1 | \
+          aws ecr get-login-password --region us-east-1 | /
           docker login --username AWS --password-stdin 816069150653.dkr.ecr.us-east-1.amazonaws.com
 
       - name: Build Docker image
         run: |
-          docker build -t 816069150653.dkr.ecr.us-east-1.amazonaws.com/flaskrepo:v1 ./day1
-          docker push 816069150653.dkr.ecr.us-east-1.amazonaws.com/flaskrepo:v1
+          docker build -t 816069150653.dkr.ecr.us-east-1.amazonaws.com/flask-ecr-day4:latest ./day3/src/
+          docker push 816069150653.dkr.ecr.us-east-1.amazonaws.com/flask-ecr-day4:latest

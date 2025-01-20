@@ -9,6 +9,7 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:admin123@flask-db.czysgeo0icaa.us-east-1.rds.amazonaws.com:5432/mydb'
 
+
 # Initialize SQLAlchemy with app context
 db = SQLAlchemy()
 db.init_app(app)

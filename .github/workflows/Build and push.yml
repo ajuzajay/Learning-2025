@@ -27,8 +27,7 @@ jobs:
         run: |
           aws ecr get-login-password --region us-east-1 | \
           docker login --username AWS --password-stdin 816069150653.dkr.ecr.us-east-1.amazonaws.com
-
       - name: Build Docker image
         run: |
-          docker build -t 816069150653.dkr.ecr.us-east-1.amazonaws.com/flask-ecr-day4:latest ./day3/src/
-          docker push 816069150653.dkr.ecr.us-east-1.amazonaws.com/flask-ecr-day4:latest
+          docker build -t 816069150653.dkr.ecr.us-east-1.amazonaws.com/flaks-application-repo:latest ./day3/src/
+          docker push 816069150653.dkr.ecr.us-east-1.amazonaws.com/flaks-application-repo:latest

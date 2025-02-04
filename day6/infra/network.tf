@@ -83,7 +83,3 @@ resource "aws_route_table" "public_2" {
     Name = "Ecs farget public route table 2"
   }
 }
-
-#route table association
-
-##

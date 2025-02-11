@@ -22,3 +22,9 @@ docker run -p 5000:5000 flask-app
 
 
 # psql 
+
+
+Creating RDS password using random provider and its saved in aws secret manager
+
+ECS template we will pass the username, password, hostname, portnumber, DBname.. via enviornement variable and that variable value we will use in our applications, 
+
